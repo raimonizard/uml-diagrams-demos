@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Usuari as U
+boundary GUI
+control Gestor as G
+entity Factura as F
+
+U -> GUI: veureFactures()
+GUI -> G: consultarFactures(usuari)
+G -> F: usuari.getFactures(): List<Factura>
+
+loop usuari.getFactures().size
+   G -> F: getFactura(): Factura
+   activate F
+   F --> G: factura.toString(): String
+   deactivate F
+end
+
+G --> GUI: mostrarLlistatFactures(factures)
+@enduml

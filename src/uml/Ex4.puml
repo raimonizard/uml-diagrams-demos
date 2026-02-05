@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+'Sistema de Venda d'Entrades:
+ 'Volem fer el disseny de casos d'ús d'una aplicació de venda d'entrades per a concerts, on l’administrador:
+  ' 1.Pot afegir nous esdeveniments
+  ' 2.Gestionar vendes,
+ ' Els usuaris poden:
+ ' 1.Cercar esdeveniments
+ '2.Comprar entrades
+ ' Usuari registrats poden:
+ ' 1.Veure el seu historial de compres
+ ' 2.Cancel·lar entrades.
+left to right direction
+
+actor Admin as A
+actor Usuari as U
+actor UsuariRegsitrat as UR
+
+UR --|> U
+
+rectangle "GestióVendesEntrades"{
+    usecase "AfegirEsdeveniments" as AE
+    usecase "GestionarVendes" as GV
+    usecase "CercarConcerts" as CC
+    usecase "ComprarEntrades" as CE
+    usecase "VeureHistorial" as VH
+    usecase "CancelarEntrades" as CLE
+}
+
+A --> AE
+A --> GV
+U --> CC
+CC <.. CE: <<extend>>
+U --> CE
+UR --> VH
+UR --> CLE
+
+@enduml

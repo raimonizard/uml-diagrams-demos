@@ -14,10 +14,10 @@ rectangle "PokémonApp" {
 
 ua --> lp
 ua --> vp
-lp ..> vd : << extend >>
-vp ..> vd : << extend >>
-vd ..> ap : << extend >>
-vd ..> tp : << extend >>
+lp <.. vd : << extend >>
+vp <.. vd : << extend >>
+vd <.. ap : << extend >>
+vd <.. tp : << extend >>
 bd -up-> ap
 bd -left-> tp
 
