@@ -1,6 +1,5 @@
 @startuml
 header CU Demanar préstec
-autonumber
 
 actor Usuari
 boundary "Sistema de Biblioteca (Interfície)" as UI
@@ -19,5 +18,4 @@ Bibliotecari --> Gestor: Aprovar/Rebutjar préstec
 Gestor --> DB: Actualitzar estat del préstec
 Gestor --> Control: Retornar estat
 Control --> UI: Mostrar resultat
-UI --> Usuari: Confirmar estat de la sol·licitud
 @enduml

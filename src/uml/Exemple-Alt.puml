@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Usuari as U
+boundary GUI
+control GestorFactures as GF
+entity Factures as F
+
+U -> GUI: veureFactura(factura)
+GUI -> GF: buscarFactura(usuari, factura)
+GF -> F: getFactures(usuari)
+
+alt existeix factura
+   activate F
+   F --> GF: factura
+   GF --> GUI: factura.toString(): String
+   deactivate F
+else no existeix factura
+   F --> GF: null
+   GF --> GUI: mostrarMissatgeError(String)
+end
+
+@enduml

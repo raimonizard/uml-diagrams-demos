@@ -15,7 +15,7 @@ collections ObjectesN
 database BaseDades1
 Entitat1 -> ObjectesN : Instancia llista d'objectes
 activate ObjectesN
-ObjectesN -> Controlador1 : Rep objectes
+ObjectesN --> Controlador1 : Rep objectes
 Controlador1 -> BaseDades1 : Petició a BD
 deactivate ObjectesN
 ' Elimina la MutableList de la RAM

@@ -1,0 +1,55 @@
+@startuml
+header Ecommerce
+autonumber
+
+actor Usuari as U
+boundary "GUI"
+control "Gestor Clients" as GC
+entity Client as CL
+control "Gestor Serveis" as GS
+entity Servei as S
+control "Gestor Passarel·la de Pagament" as PP
+entity "Base de Dades" as BD
+entity Banc as BA
+
+U -> GUI: autenticació(usuari, contrasenya)
+GUI -> GC: autenticació(usuari, contrasenya)
+GC -> CL: buscarClient(Usuari)
+activate CL
+alt client trobat
+   CL --> GC: clientTrobat(true)
+U -> GUI: contractarServei(numServei)
+GUI -> GS: contractarServei(numServei)
+GS -> S: buscarServei(numServei)
+activate S
+alt servei existent
+   S --> GS: import
+   deactivate S
+   GS -> PP: sol·licitarPagament(import)
+   PP --> GUI: demanarDadesPagament(import)
+   U -> GUI: introduirDadesBancaries(dadesTargeta)
+   GUI -> PP: ferPagament(import, dadesTargeta)
+   PP -> BA: actualitzarSaldo(client, dadesTargeta, import)
+   activate BA
+   BA --> PP: transaccioCompletada(Boolean)
+   deactivate BA
+   destroy BA
+   PP --> GS: crearServei(client, numServei)
+   GS -> BD: crearServeiNou(client, numServei)
+   activate BD
+   BD --> GS: respostaBD(Boolean)
+   deactivate BD
+   destroy BD
+   PP --> GUI: emetreRebut(detallsServei, import)
+else servei no existent
+   S --> GS: null
+   GS --> GUI: denegarContractacio()
+end
+   deactivate CL
+   destroy CL
+else client no trobat
+   CL --> GC: clientTrobat(false)
+   GC --> GUI: mostrarMissatgeError()
+end
+
+@enduml

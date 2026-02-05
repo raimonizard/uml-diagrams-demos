@@ -19,6 +19,6 @@ A --> UC4
 A --> UC5
 
 UC1 .> UC2 : <<include>>
-UC1 .> UC3 : <<extend>>
-UC5 .> UC1 : <<extend>>
+UC1 <. UC3 : <<extend>>
+
 @enduml
